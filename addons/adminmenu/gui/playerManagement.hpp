@@ -167,7 +167,7 @@ class Controls
     {
         idc = IDC_TMF_ADMINMENU_PMAN_ASSIGNRADIO;
         text = "Assign Radio";
-        onButtonClick = "systemChat 'Button: Assign Radio';";
+        onButtonClick = QUOTE([ARR_2(QUOTE(QFUNC(modal_assignRadio)),ctrlText (_this select 0))] call FUNC(modal););
         y = "11.2 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
     };
     class ButtonHeal: ButtonSelectAll
@@ -202,7 +202,7 @@ class Controls
     {
         idc = IDC_TMF_ADMINMENU_PMAN_ACRELANGUAGES;
         text = "ACRE2 Languages";
-        onButtonClick = QUOTE([ARR_2(QUOTE(QFUNC(modal_ACRE2Languages)),ctrlText (_this select 0))] call FUNC(modal););
+        onButtonClick = QUOTE([ARR_2(QUOTE(QFUNC(modal_assignACRE2Languages)),ctrlText (_this select 0))] call FUNC(modal););
         y = "16.7 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + (safezoneY + (safezoneH - (((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
     };
     class ButtonSteamProfile: ButtonSelectAll
