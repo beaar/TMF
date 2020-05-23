@@ -66,40 +66,25 @@ _unit setUnitLoadout (configFile >> 'EmptyLoadout');
                 };
             };
             case 5: { // goggles -- overwritten by player identity so apply after a delay
-                [{
-                    params ["_unit", "_goggles"];
-
-                    private _curGoggles = goggles _unit;
-                    if (_curGoggles isEqualTo "") then { // Don't respect no-goggles profile in skip check
-                        _curGoggles = "givemegoggles";
-                    };
-
-                    // Skip if loadout allows profile glasses OR profile glasses part of loadout
-                    if ("default" in _goggles || _curGoggles in _goggles) exitWith {};
-
-                    private _newGoggles = ""; 
-                    if !(_goggles isEqualTo []) then {
-                        _newGoggles = selectRandom _goggles;
-                    };
-
-                    if (_newGoggles isEqualTo "") then {
-                        removeGoggles _unit;
-                    } else {
-                        _unit addGoggles _newGoggles;
-                    };
-                }, [_unit, _x], 1] call CBA_fnc_waitAndExecute;
+                if (isPlayer _unit) then {
+                    [{
+                        _this call FUNC(setGoggles);
+                    }, [_unit, _x], 1] call CBA_fnc_waitAndExecute;
+                } else {
+                    [_unit, _x] call FUNC(setGoggles);
+                };
             };
             case 6: { // hmd
                 private _hmd = selectRandom _x;
                 if !(_hmd isEqualTo '') then {_unit linkItem _hmd};
             };
             case 7: { // faces -- overwritten by player identity so apply after a delay
-                if !(_x isEqualTo []) then {
+                if (isPlayer _unit) then {
                     [{
-                        params ["_unit", "_faces"];
-
-                        [_unit, _faces] call FUNC(setFace);
+                        _this call FUNC(setFace);
                     }, [_unit, _x], 1] call CBA_fnc_waitAndExecute;
+                } else {
+                    [_unit, _x] call FUNC(setFace);
                 };
             };
             case 8: { // insignias
